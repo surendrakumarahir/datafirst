@@ -6,13 +6,13 @@ const Menu = () => {
 	return (
 		<Nav className="menu-custom" activeKey="/home">
 			<Nav.Item>
-				<Nav.Link href="/home">Active</Nav.Link>
+				<Nav.Link href="/home">English</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
-				<Nav.Link eventKey="link-1">Link</Nav.Link>
+				<Nav.Link eventKey="link-1">Nav1</Nav.Link>
 			</Nav.Item>
 			<Nav.Item>
-				<Nav.Link eventKey="link-2">Link</Nav.Link>
+				<Nav.Link eventKey="link-2">Nav2</Nav.Link>
 			</Nav.Item>
 		</Nav>
 	);

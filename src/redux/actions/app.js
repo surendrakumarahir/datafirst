@@ -1,46 +1,26 @@
 import {
-	USER_DATA_SAVE,
+	SAVE_MENU,
+	SAVE_INFO,
+	DAY_NAME,
 } from "./types";
 import {api} from "../../api";
-import {portalPoints, menu, pointHistory} from "../../data";
 
 
-export const  portanPoint = (id) => async dispatch => {
-	console.log("wokring");
-	return new Promise(async(resolve, reject) => {
-		//const result = await api.get("/dev");
-		//console.log(result);
-		let arr = portalPoints.body.portalPoints;
-		const length = arr.length;
-		console.log(length, id*8);
-		let end = true;
-		if(length < (id+1)*8) {
-			end(false);
+export const  getData = () => async dispatch => {
+	//console.log("wokring");
+	return new Promise(async (resolve, reject) => {
+		const result = await api.get("/restaurants/info/v1/QA-SUGARMASH/menu");
+		console.log("result", result);
+		if(result.success === true) {
+			dispatch({type:SAVE_MENU, payload: result.menu});
+			dispatch({type:SAVE_INFO, payload: result.info});
+			dispatch({type:DAY_NAME, payload: result.day_name});
+			resolve("Success");
+		} else {
+			reject("Error");
 		}
-		if(length > id*8)  {
-			resolve({end: end, data: arr.slice(id*8, id*8+8)});
-			
-		}
-		resolve([]);
-		
 	});
+
 };
 
-export const  pointHistoryGet = () => async dispatch => {
-	console.log("wokring");
-	return new Promise(async(resolve, reject) => {
-		//const result = await api.get("/dev");
-		//console.log(result);
-		resolve(pointHistory);
-	});
-};
-
-export const  getManu = () => async dispatch => {
-	console.log("wokring");
-	return new Promise(async(resolve, reject) => {
-		//const result = await api.get("/dev");
-		//console.log(result);
-		resolve(menu);
-	});
-};
 

@@ -20,19 +20,16 @@ class Api {
 	}
 
 	send(url, method, data) {
-		//let uri = `${this.base_url}${this.root_path}${url}`;
-		//console.log('data', data);
+		
 		let language = store.getState("app").app.language;
 		let token = store.getState("app").app.token;
 		let uri = `${defaultOptions.baseUrl}${url}`;
 		console.log(uri);
 		const headers = {
-			//APIKEY: `${defaultOptions.apikey}`,
+			"Ocp-Apim-Subscription-Key": `${defaultOptions.apikey}`,
 			"Content-Type": "application/json",
-			//'Content-Type': 'multipart/form-data',
 			localization: language ? language : "en",
 		};
-		//console.log(token);
 		if (token) {
 			headers.Authorization = `Bearer ${token}`;
 		}
@@ -83,29 +80,10 @@ class Api {
 				})
 				.catch(error => {
 					console.log("error", error);
-					//const customError = this.getErrorMessageForResponce(error);
-					//reject(new Error("Something go wrong"));
 					reject(error);
 				});
 		});
 	}
-
-	// getErrorMessageForResponce(data) {
-	//   const params = data.parameters;
-	//   let {message} = data;
-	//   if (typeof params !== 'undefined') {
-	//     if (Array.isArray(params) && params.length > 0) {
-	//       data.parameters.forEach((item, index) => {
-	//         message = message.replace(`%${index + 1}`, item);
-	//       });
-	//       return message;
-	//     }
-	//     _.forEach(params, (value, name) => {
-	//       message = message.replace(`%${name}`, value);
-	//     });
-	//   }
-	//   return message;
-	// }
 }
 
 export const api = new Api();
