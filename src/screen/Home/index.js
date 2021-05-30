@@ -5,6 +5,7 @@ import {Container, Row, Col, Tab, Tabs} from "react-bootstrap";
 import Banner from "../../components/Banner";
 import {IsLoadingHOC} from "../../components/IsLoadingHOC";
 const Home  = ({menu, getData, currency_code, setLoading}) => {
+	
 	useEffect(() => {
 		setLoading(true);
 		getData().then(response => {
@@ -14,19 +15,20 @@ const Home  = ({menu, getData, currency_code, setLoading}) => {
 			console.log(error);
 		});
 	}, [getData]);
+
 	const getList = (menu_categories) => {
-		const dataList = [];
-		console.log("menu category", menu_categories);
+		let dataList = [];
 		menu_categories.forEach(cat => {
-			cat.items&&dataList.push(cat.items);
+			if(cat.items) {
+				dataList = [...dataList, ...cat.items];
+			}
 		});
-		console.log("dataList", dataList);
-		dataList.map((cat, index) => {
+		return	dataList.map((cat, index) => {
 			return (
 				<div className="menulist" key={index}>
 					<Row>
 						<Col xs={4}> 
-							<img className="menulist-image" alt="name" src="https://dxp-hospitality-dev-rg-sit-467300-cd2.azurewebsites.net//-/mediadh/dh/hospitality/e-menu/menus/aqpool/aqpool.jpg" />
+							<img className="menulist-image" alt="name" src={cat.image?cat.image: "https://dxp-hospitality-dev-rg-sit-467300-cd2.azurewebsites.net//-/mediadh/dh/hospitality/e-menu/menus/aqpool/aqpool.jpg"} />
 						</Col>
 						<Col className="content">
 
@@ -65,19 +67,6 @@ const Home  = ({menu, getData, currency_code, setLoading}) => {
 										{
 											getList(item.menu_categories)
 										}
-										<div className="menulist" key={index}>
-											<Row>
-												<Col xs={4}> 
-													<img className="menulist-image" alt="name" src="https://dxp-hospitality-dev-rg-sit-467300-cd2.azurewebsites.net//-/mediadh/dh/hospitality/e-menu/menus/aqpool/aqpool.jpg" />
-												</Col>
-												<Col className="content">
-								
-													<div className="name">Name</div>
-													<div className="price">AED 50</div>
-													<div className="address">address</div>
-												</Col>
-											</Row>
-										</div>
 									</Container>
 								</Tab>
 				
@@ -86,11 +75,11 @@ const Home  = ({menu, getData, currency_code, setLoading}) => {
 						
 					})
 				}
-				<Tab eventKey="profile" title="Profile">
-					<div>ewwerer</div>
+				<Tab eventKey="allday" title="All Days">
+					<div>All Day Content</div>
 				</Tab>
-				<Tab eventKey="contact" title="Contact">
-					<div>jklj</div>
+				<Tab eventKey="drink" title="Drink">
+					<div> Drink Content	</div>
 				</Tab>
 			</Tabs>
 			
@@ -100,7 +89,6 @@ const Home  = ({menu, getData, currency_code, setLoading}) => {
 	
 const mapStateToProps = ({app}) => {
 	const {menu, info} = app;
-	console.log("check props menu", menu);
 	return {
 		menu,
 		currency_code: info.currency_code,	

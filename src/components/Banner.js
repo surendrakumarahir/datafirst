@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { Button } from "react-bootstrap";
 import {connect} from "react-redux";
 const Image = styled.div`
-   width: 100%; 
-       height:500px; 
-     margin-bottom: 30px;
+  width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+    margin-bottom: 30px;
 `;
 const Title = styled.div`
       color: #fff;
@@ -19,7 +22,7 @@ const Banner = ({restaurant_name, image_url}) => {
 				<div>
 					<Title>{restaurant_name}</Title>
 				</div>
-				<div><Button variant="primary">My Order</Button></div>
+				<div><Button  className="orderNow">My Order</Button></div>
 			</div>
 		</Image>
 	);
