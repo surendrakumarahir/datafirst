@@ -7,7 +7,6 @@ import {api} from "../../api";
 
 
 export const  getData = () => async dispatch => {
-	//console.log("wokring");
 	return new Promise(async (resolve, reject) => {
 		const result = await api.get("/restaurants/info/v1/QA-SUGARMASH/menu");
 		console.log("result", result);
